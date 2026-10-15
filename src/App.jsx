@@ -1,8 +1,8 @@
 import { useState } from 'react';
-
 function App() {
   const [items, setItems] = useState([]);
   const [name, setName] = useState('');
+  const[mail,setMail]=useState('');
   const [role, setRole] = useState('');
   const [editId, setEditId] = useState(null);
 
@@ -12,7 +12,7 @@ function App() {
     const item = { id: editId ?? Date.now(), name: name.trim(), role };
     setItems(editId === null ? [...items, item]
       : items.map((old) => old.id === editId ? item : old));
-    setName(''); setRole(''); setEditId(null);
+    setName(''); setRole(''); setEditId(null); setMail('');
   };
 
   const editItem = (item) => {
@@ -32,6 +32,8 @@ function App() {
           onChange={(e) => setName(e.target.value)} required />
         <input aria-label="Role" placeholder="Role" value={role}
           onChange={(e) => setRole(e.target.value)} required />
+        <input aria-label="mail" placeholder="Mail" value={mail}
+          onChange={(e) => setMail(e.target.value)} required />
         <button>{editId === null ? 'Add' : 'Update'}</button>
       </form>
       <h2>This Is My Skills</h2>
@@ -39,7 +41,7 @@ function App() {
       {items.map((item) => (
         <div key={item.id}>
           <p>Name: {item.name}</p>
-          <p>Role: {item.department}</p>
+          <p>Role: {item.role}</p>
           <button onClick={() => editItem(item)}>Edit</button>
           <button onClick={() => deleteItem(item.id)}>Delete</button>
         </div>
