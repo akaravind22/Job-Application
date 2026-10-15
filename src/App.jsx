@@ -9,14 +9,14 @@ function App() {
   const saveItem = (e) => {
     e.preventDefault();
     if (!name.trim() || !role.trim()) return;
-    const item = { id: editId ?? Date.now(), name: name.trim(), role };
+    const item = { id: editId ?? Date.now(), name: name.trim(), role , mail};
     setItems(editId === null ? [...items, item]
       : items.map((old) => old.id === editId ? item : old));
     setName(''); setRole(''); setEditId(null); setMail('');
   };
 
   const editItem = (item) => {
-    setName(item.name); setRole(item.role); setEditId(item.id);
+    setName(item.name); setRole(item.role); setEditId(item.id); setMail(item.id);
   };
 
   const deleteItem = (id) => {
@@ -32,7 +32,7 @@ function App() {
           onChange={(e) => setName(e.target.value)} required />
         <input aria-label="Role" placeholder="Role" value={role}
           onChange={(e) => setRole(e.target.value)} required />
-        <input aria-label="mail" placeholder="Mail" value={mail}
+        <input aria-label="mail" type='email' placeholder="Mail" value={mail}
           onChange={(e) => setMail(e.target.value)} required />
         <button>{editId === null ? 'Add' : 'Update'}</button>
       </form>
@@ -42,6 +42,7 @@ function App() {
         <div key={item.id}>
           <p>Name: {item.name}</p>
           <p>Role: {item.role}</p>
+          <p>Mail: {item.mail}</p>
           <button onClick={() => editItem(item)}>Edit</button>
           <button onClick={() => deleteItem(item.id)}>Delete</button>
         </div>
